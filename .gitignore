@@ -1,0 +1,14 @@
+# Docker-generated certs and node data (remove these lines if you truly want to commit runtime state)
+certs/
+data/es01/
+data/es02/
+data/es03/
+data/kibana/
+
+# Keep seed data tracked
+!data/seed/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.log
