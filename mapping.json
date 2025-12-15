@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "en_stop": { "type": "stop", "stopwords": "_english_" },
+        "en_stem": { "type": "stemmer", "language": "english" },
+        "shingle": { "type": "shingle", "min_shingle_size": 2, "max_shingle_size": 3 }
+      },
+      "analyzer": {
+        "text_english": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "en_stop", "en_stem", "shingle"]
+        },
+        "text_exact": {
+          "tokenizer": "keyword",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "text_english",
+        "search_analyzer": "text_english",
+        "fields": { "raw": { "type": "keyword", "ignore_above": 256 } }
+      },
+      "author": {
+        "type": "text",
+        "analyzer": "text_english",
+        "fields": { "raw": { "type": "keyword", "ignore_above": 256 } }
+      },
+      "language": { "type": "keyword" },
+      "published_year": { "type": "integer" },
+      "genres": { "type": "keyword" },
+      "synopsis": { "type": "text", "analyzer": "text_english", "search_analyzer": "text_english" },
+      "tags": { "type": "keyword" },
+      "file_url": { "type": "keyword", "index": false }
+    }
+  }
+}
