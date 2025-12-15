@@ -1,9 +1,9 @@
 # Docker-generated certs and node data (remove these lines if you truly want to commit runtime state)
-# certs/
-# data/es01/
-# data/es02/
-# data/es03/
-# data/kibana/
+certs/
+data/es01/
+data/es02/
+data/es03/
+data/kibana/
 
 # Local secrets/config
 # .env

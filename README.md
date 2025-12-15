@@ -1,31 +1,81 @@
 # E-Book Search with Custom Analyzers
 
+Username: elastic </br>
+Password: bananana
 
 ## Milestones:
-- Milestone 1 - Project description
+- <b> Milestone 1 - Project description </b>
     
-	A search engine for e-books using Elasticsearch. It uses tuned Elasticsearch analyzers (built-in analyzers configured with stemming and synonyms) to dramatically improve search relevance beyond simple keyword matching. Kibana is used to visualize the dataset's content and validate the text analysis.
+	An Elasticsearch-backed e-book index running in Docker (TLS + basic auth). A custom English analyzer (`text_english`) is defined with lowercase, asciifolding, English stopwords, stemming, and shingles to improve relevance. A 10k-record OpenLibrary dataset is harvested via `get_books.py`, mapped with `mapping.json`, bulk-loaded into the `ebooks` index, and explored via Kibana and Postman.
 
-- Milestone 2 - List of use cases
+<br>
 
-	- UC1: Ingest e-book metadata (title, author, language, published year, genres, synopsis, file URL)
-	- UC2: Define and update custom analyzers (stemming, stopwords, synonyms) for English and additional languages
-	- UC3: Index e-books into Elasticsearch with the active analyzer set
-	- UC4: Reindex existing content when analyzer configuration changes
-	- UC5: Full-text search by keyword/phrase with relevance boosting (title > synopsis > tags)
-	- UC6: Faceted filtering (language, genre, year range, author) on search results
-	- UC7: Pagination and sorting of search results (relevance, newest, oldest)
-	- UC8: Suggest/autocomplete as user types (prefix and typo-tolerant where analyzer allows)
-	- UC9: Highlight matched terms (synonym- and stem-aware) in results
-	- UC10: Retrieve full e-book metadata and download link by ID
-	- UC11: Track search queries and clicks for analytics
-	- UC12: Visualize indexed corpus and analyzer behavior in Kibana (tokenization, synonyms, char filters)
-	- UC13: Health check and monitoring endpoints for Elasticsearch cluster and API service
+- <b> Milestone 2 - List of use cases </b>
 
-- Milestone 3 - Rest API  - SWAGGER UI
+	- UC1: Harvest open e-book metadata with `get_books.py` into NDJSON for bulk ingest.
+	- UC2: Define and apply the custom `text_english` analyzer via `mapping.json` when creating the `ebooks` index.
+	- UC3: Bulk load the generated dataset into Elasticsearch over HTTPS with auth.
+	- UC4: Run relevance tests using `multi_match` queries (curl/Postman) on `title`, `synopsis`, and `tags` with stemming and shingles.
+	- UC5: Inspect analyzer output with `_analyze` to validate tokenization/stemming for search quality.
+	- UC6: Explore indexed data in Kibana (Discover, Lens) using the `ebooks` data view (no time field).
+	- UC7: Retrieve individual documents by ID and basic counts/health from the secured cluster.
+	- UC8: Highlight matched terms in search responses to verify analyzer impact.
 
-- Milestone 4 - Elastic Maping
+<br>
 
-- Milestone 5 - Implementation
+- <b> Milestone 3 - Rest API  - SWAGGER UI </b>
 
-- Milestone 6 - Postman Testing
+<br>
+
+- <b> Milestone 4 - Elastic Maping </b>
+
+get_books.py gets the dataset and then is imported.
+
+```
+curl.exe -X PUT "http://localhost:9200/ebooks" -H "Content-Type: application/json" --data-binary '@mapping.json'
+```
+
+```
+curl.exe -X POST "https://localhost:9200/ebooks/_bulk" --cacert "certs/ca/ca.crt" -u "elastic:bananana" -H "Content-Type: application/json" --data-binary "@dataset/books-openlibrary.jsonl"
+```
+
+<br>
+
+- <b> Milestone 5 - Implementation </b>
+
+Docker containers are configured and data is imported.
+
+<i> To deploy: </i>
+```
+docker-compose up -d
+```
+<i> Enter on http://localhost:5601. Log in, go to Analytics and press on Discover. </i>
+
+<br>
+
+- <b> Milestone 6 - Postman Testing </b>
+
+Functionality of querying ElasticSearch works
+
+<i> Example of query "travel": </i>
+```
+GET: https://localhost:9200/ebooks/_search
+Header: Content-Type:application/json
+Body:
+{
+  "query": {
+    "multi_match": {
+      "query": "travel",
+      "fields": ["title", "synopsis", "tags"]
+    }
+  },
+  "_source": ["title", "author", "published_year"],
+  "highlight": {
+    "fields": {
+      "title": {},
+      "synopsis": {}
+    }
+  },
+  "size": 10
+}
+```
