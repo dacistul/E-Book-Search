@@ -1,0 +1,10 @@
+{ "index": { "_index": "ebooks", "_id": "ebook-0001" } }
+{ "title": "The Whispering Library", "author": "Ava Chen", "language": "en", "published_year": 2021, "genres": ["mystery", "thriller"], "synopsis": "An archivist unearths a banned manuscript; every reader disappears after turning the final page.", "tags": ["library", "rare books", "forbidden text"], "file_url": "https://example.com/ebooks/the-whispering-library.epub" }
+{ "index": { "_index": "ebooks", "_id": "ebook-0002" } }
+{ "title": "Solar Winds: A Voyager's Guide", "author": "Marco Velas", "language": "en", "published_year": 2019, "genres": ["science", "non-fiction"], "synopsis": "Explains heliophysics and solar storms with field notes from spacecraft engineers.", "tags": ["space", "sun", "plasma", "space weather"], "file_url": "https://example.com/ebooks/solar-winds.pdf" }
+{ "index": { "_index": "ebooks", "_id": "ebook-0003" } }
+{ "title": "Gardens of Silence", "author": "Lena Moreau", "language": "en", "published_year": 2017, "genres": ["literary", "drama"], "synopsis": "A botanist returns to her coastal hometown to restore a salt-battered conservatory and reconcile with her brother.", "tags": ["botany", "family", "coast"], "file_url": "https://example.com/ebooks/gardens-of-silence.epub" }
+{ "index": { "_index": "ebooks", "_id": "ebook-0004" } }
+{ "title": "El Viaje de la Llama", "author": "Sofía Rojas", "language": "es", "published_year": 2022, "genres": ["fantasy", "adventure"], "synopsis": "Una joven pastora persigue a su llama sagrada a través de montañas nevadas y descubre un linaje olvidado.", "tags": ["andinismo", "familia", "magia"], "file_url": "https://example.com/ebooks/el-viaje-de-la-llama.epub" }
+{ "index": { "_index": "ebooks", "_id": "ebook-0005" } }
+{ "title": "Data Sketches for Storytellers", "author": "Priya Kulkarni", "language": "en", "published_year": 2023, "genres": ["technology", "design"], "synopsis": "Practical recipes for narrative visualizations with examples in notebooks and dashboards.", "tags": ["data viz", "storytelling", "design"], "file_url": "https://example.com/ebooks/data-sketches.epub" }

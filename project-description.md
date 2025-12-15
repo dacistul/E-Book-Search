@@ -4,7 +4,7 @@
 ## Milestones:
 - Milestone 1 - Project description
     
-    A search engine for e-books using Elasticsearch. It features custom text analyzers (with stemming and synonyms) to dramatically improve search relevance beyond simple keyword matching. Kibana is used to visualize the dataset's content and validate the custom text analysis.
+	A search engine for e-books using Elasticsearch. It uses tuned Elasticsearch analyzers (built-in analyzers configured with stemming and synonyms) to dramatically improve search relevance beyond simple keyword matching. Kibana is used to visualize the dataset's content and validate the text analysis.
 
 - Milestone 2 - List of use cases
 	- UC1: Ingest e-book metadata (title, author, language, published year, genres, synopsis, file URL)

@@ -5,6 +5,9 @@ data/es02/
 data/es03/
 data/kibana/
 
+# Local secrets/config
+.env
+
 # Keep seed data tracked
 !data/seed/
 
