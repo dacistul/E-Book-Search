@@ -25,6 +25,68 @@ Password: bananana
 
 - <b> Milestone 3 - Rest API  - SWAGGER UI </b>
 
+Prerequisites - Make sure you have the required libraries installed:
+
+```
+pip install fastapi pydantic uvicorn elasticsearch
+```
+
+Run the application 
+```
+python app.py 
+```
+
+Open the Swagger UI on http://127.0.0.1:8000/docs
+
+> **Note:** The engine has 2 inputs: `word` (search term) and `limit` (number of results).
+
+
+#### Successful request example:
+
+```
+q: gentleman
+limit: 50
+```
+
+Response:
+```json
+[
+  {
+    "title": "A Gentleman in Moscow",
+    "author": "Amor Towles",
+    "published_year": 2016,
+    "genres": ["Historical Fiction"],
+    "synopsis": "A count is sentenced to house arrest in a luxury hotel.",
+    "file_url": "[https://example.com/gentleman.pdf](https://example.com/gentleman.pdf)"
+  }
+]
+```
+
+#### Validation Error Example
+
+To trigger the validation error open http://127.0.0.1:8000/search?q=books&limit=999 by giving a higher character limit on a query, the validation message will be 
+
+```json
+{
+  "detail": [
+    {
+      "type": "less_than_equal",
+      "loc": [
+        "query",
+        "limit"
+      ],
+      "msg": "Input should be less than or equal to 50",
+      "input": "999",
+      "ctx": {
+        "le": 50
+      }
+    }
+  ]
+}
+```
+
+> **Note:** Validation errors for data types (like entering text into the `limit` field) cannot be triggered directly in the Swagger UI because it uses a **client-side validator** to block invalid requests before they reach the server.
+
 <br>
 
 - <b> Milestone 4 - Elastic Maping </b>
@@ -46,9 +108,11 @@ curl.exe -X POST "https://localhost:9200/ebooks/_bulk" --cacert "certs/ca/ca.crt
 Docker containers are configured and data is imported.
 
 <i> To deploy: </i>
+
 ```
 docker-compose up -d
 ```
+
 <i> Enter on http://localhost:5601. Log in, go to Analytics and press on Discover. </i>
 
 <br>
@@ -58,6 +122,7 @@ docker-compose up -d
 Functionality of querying ElasticSearch works
 
 <i> Example of query "travel": </i>
+
 ```
 GET: https://localhost:9200/ebooks/_search
 Header: Content-Type:application/json
