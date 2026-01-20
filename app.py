@@ -40,7 +40,7 @@ async def custom_swagger_ui_html():
     return HTMLResponse(content=content.replace("</head>", f"{custom_css}</head>"))
 
 
-@app.get("/search", tags=["🔍 Search Services"])
+@app.get("/search", tags=["Search Services"])
 async def search_books(
         q: str = Query(..., description="Enter search term", examples=["gentleman"]),
         limit: int = Query(5, ge=1, le=50)
